@@ -18,6 +18,7 @@ namespace ConsoleApp1
         static async Task Main(string[] args)
         {
             var m = match("TOTAL", "TOTAL");
+            var path = @"d:\9C箱单0000880680.xlsx";
             var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
             string result = await CSharpScript.EvaluateAsync<string>("\"INVOICE DATE(發票日期):20180904\".Split(':')[1]");
             var configpath = @"d:\XslImportRule1.xml";
@@ -25,10 +26,12 @@ namespace ConsoleApp1
             var root = xdoc.Root.Name;
             var descxml = new XDocument();
             descxml.Add(new XElement(xdoc.Root.Name));
-
-
-            var path = @"d:\9C箱单0000880680.xlsx";
             var workbook = new XSSFWorkbook(path);
+             Process(workbook,null, xdoc.Root, 0, descxml.Root,null);
+            descxml.Save("d:\\output.xml");
+            return;
+
+
 
             foreach (var element in xdoc.Root.Elements())
             {
@@ -60,7 +63,7 @@ namespace ConsoleApp1
                 {
                     var table = new DataTable();
                     #region test
-                    
+
                     if (!string.IsNullOrEmpty(starttag))
                     {
                         startaddress = findXslx(sheet, starttag);
@@ -125,7 +128,7 @@ namespace ConsoleApp1
 
                     if (table.Rows.Count > 0)
                     {
-                
+
                         foreach (DataRow dr in table.Rows)
                         {
                             var xelement = new XElement(name);
@@ -136,7 +139,7 @@ namespace ConsoleApp1
                                 var datatype = fieldelement.Attributes().Where(x => x.Name == "data-type").Select(x => x.Value);
                                 var defaultvalue = fieldelement.Attributes().Where(x => x.Name == "data-default").FirstOrDefault()?.Value;
                                 var fieldval = table.Columns.Contains(fieldname) ? dr[fieldname].ToString() : "";
-                                var xfelement = new XElement(elename, string.IsNullOrEmpty(fieldval)? defaultvalue: fieldval);
+                                var xfelement = new XElement(elename, string.IsNullOrEmpty(fieldval) ? defaultvalue : fieldval);
                                 xelement.Add(xfelement);
                             }
                             descxml.Root.Add(xelement);
@@ -148,8 +151,9 @@ namespace ConsoleApp1
                 else
                 {
                     var xhead = new XElement(name);
-                    foreach(var subele in element.Elements()) {
-                        
+                    foreach (var subele in element.Elements())
+                    {
+
                         var subname = subele.Name;
                         var subelement = new XElement(subname);
                         var subatts = subele.Attributes();
@@ -158,23 +162,26 @@ namespace ConsoleApp1
                         var formatter = subatts.Where(x => x.Name == "data-formatter").FirstOrDefault()?.Value;
                         var offset = subatts.Where(x => x.Name == "data-offset").FirstOrDefault()?.Value;
                         var defaultvalue = subatts.Where(x => x.Name == "data-default").FirstOrDefault()?.Value;
-                        CellAddress celladdress=null;
+                        CellAddress celladdress = null;
                         if (!string.IsNullOrEmpty(substarttag))
                         {
                             celladdress = findXslx(sheet, substarttag);
                         }
-                        else if (!string.IsNullOrEmpty(substart)) {
+                        else if (!string.IsNullOrEmpty(substart))
+                        {
                             celladdress = new CellAddress(new CellReference(substart));
                         }
                         if (celladdress != null)
                         {
                             var r = 0;
                             var c = 0;
-                            if (!string.IsNullOrEmpty(offset)) {
+                            if (!string.IsNullOrEmpty(offset))
+                            {
                                 var sp = offset.Split(';');
-                                foreach (var ts in sp) {
+                                foreach (var ts in sp)
+                                {
                                     var sparray = ts.Split(':');
-                                    if(sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
+                                    if (sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
                                     {
                                         c = Convert.ToInt32(sparray[1]);
                                     }
@@ -184,7 +191,7 @@ namespace ConsoleApp1
                                     }
                                 }
                             }
-                            var cell = sheet.GetRow(celladdress.Row + r).GetCell(celladdress.Column+c);
+                            var cell = sheet.GetRow(celladdress.Row + r).GetCell(celladdress.Column + c);
                             var val = getCellValue(cell);
                             if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
                             {
@@ -198,7 +205,8 @@ namespace ConsoleApp1
                             }
                             subelement.SetValue(val);
                         }
-                        else if (!string.IsNullOrEmpty(defaultvalue)) {
+                        else if (!string.IsNullOrEmpty(defaultvalue))
+                        {
                             subelement.SetValue(defaultvalue);
                         }
                         xhead.Add(subelement);
@@ -211,8 +219,242 @@ namespace ConsoleApp1
             //var sheet = workbook.GetSheetAt(0);
 
         }
+        static void Process(IWorkbook book, ISheet sheet, XElement element, int depth, XElement root,DataRow dr)
+        {
+            var pelment = element.Parent;
+            var name = element.Name;
+            var atts = element.Attributes();
+            var replicate = atts.Where(x => x.Name == "replicate").FirstOrDefault()?.Value;
+            var sheetname = atts.Where(x => x.Name == "sheet-name").FirstOrDefault()?.Value;
+            var starttag = atts.Where(x => x.Name == "start-tag").FirstOrDefault()?.Value;
+            var start = atts.Where(x => x.Name == "start").FirstOrDefault()?.Value;
+            var endtag = atts.Where(x => x.Name == "end-tag").FirstOrDefault()?.Value;
+            var end = atts.Where(x => x.Name == "end").FirstOrDefault()?.Value;
+            var fieldname = atts.Where(x => x.Name == "data-field").Select(x => x.Value).FirstOrDefault();
+            var datatype = atts.Where(x => x.Name == "data-type").Select(x => x.Value);
+            var defaultvalue = atts.Where(x => x.Name == "data-default").FirstOrDefault()?.Value;
+            var formatter = atts.Where(x => x.Name == "data-formatter").FirstOrDefault()?.Value;
+            var offset = atts.Where(x => x.Name == "data-offset").FirstOrDefault()?.Value;
+            XElement copyelement = null;
+         
+            //if (element.Parent != null )
+            //{
+            //    copyelement = new XElement(name);
+            //    root.Add(copyelement);
+            //}
+            if (!string.IsNullOrEmpty(replicate) && !string.IsNullOrEmpty(sheetname)) {
+                sheet = book.GetSheet(sheetname);
+            }
+     
+            if (!element.HasElements)
+            {
+                copyelement = new XElement(name);
+                root.Add(copyelement);
+                // element is child with no descendants
+                if (dr == null)
+                {
+                    CellAddress celladdress = null;
+                    if (!string.IsNullOrEmpty(starttag))
+                    {
+                        celladdress = findXslx(sheet, starttag);
+                    }
+                    else if (!string.IsNullOrEmpty(start))
+                    {
+                        celladdress = new CellAddress(new CellReference(start));
+                    }
+                    if (celladdress != null)
+                    {
+                        var r = 0;
+                        var c = 0;
+                        if (!string.IsNullOrEmpty(offset))
+                        {
+                            var sp = offset.Split(';');
+                            foreach (var ts in sp)
+                            {
+                                var sparray = ts.Split(':');
+                                if (sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    c = Convert.ToInt32(sparray[1]);
+                                }
+                                else
+                                {
+                                    r = Convert.ToInt32(sparray[1]);
+                                }
+                            }
+                        }
+                        var cell = sheet.GetRow(celladdress.Row + r).GetCell(celladdress.Column + c);
+                        var val = getCellValue(cell);
+                        if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
+                        {
+                            val = defaultvalue;
+                        }
+                        if (!string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(formatter))
+                        {
+                            var codescript = formatter.Replace("$", "\"" + val + "\"");
+                            var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
+                            val = fval;
+                        }
+                        copyelement.SetValue(val);
+                    }
+                    else if (!string.IsNullOrEmpty(defaultvalue))
+                    {
+                        copyelement.SetValue(defaultvalue);
+                    }
+                }
+                else
+                {
+                   if(dr.Table.Columns.Contains(fieldname))
+                    {
+                        var val =  dr[fieldname].ToString();
+                        if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
+                        {
+                            val = defaultvalue;
+                            
+                        }
+                        copyelement.SetValue(val);
+                    }
+                    else if(!string.IsNullOrEmpty(defaultvalue))
+                    {
+                       copyelement.SetValue(defaultvalue);
+                    }
+                }
+                 
+            }
+            else
+            {
+                depth++;
+                if (replicate == "true")
+                {
+                    var datatable= filldatatable(sheet, starttag, start, endtag, end, offset);
+                    if (datatable.Rows.Count > 0)
+                    {
+                        foreach (DataRow datarow in datatable.Rows)
+                        {
+                            copyelement = new XElement(name);
+                            foreach (var child in element.Elements())
+                            {
+                                if (copyelement != null)
+                                {
+                                    Process(book, sheet, child, depth, copyelement, datarow);
+                                }
+                                else
+                                {
+                                    Process(book, sheet, child, depth, root, datarow);
+                                }
 
-        static CellAddress findXslx(ISheet sheet, string key)
+                            }
+                            root.Add(copyelement);
+                        }
+                    }
+                }
+                else
+                {
+                    copyelement = new XElement(name);
+                    root.Add(copyelement);
+                    foreach (var child in element.Elements())
+                    {
+                        if (copyelement != null)
+                        {
+                            Process(book,sheet, child, depth, copyelement,null);
+                        }
+                        else
+                        {
+                            Process(book,sheet, child, depth, root,null);
+                        }
+
+                    }
+                }
+
+                depth--;
+            }
+        }
+
+        private static DataTable filldatatable(ISheet sheet, string starttag, string start, string endtag, string end, string offset)
+        {
+            CellAddress startaddress = null;
+            CellAddress endaddress = null;
+            if (!string.IsNullOrEmpty(starttag))
+            {
+                startaddress = findXslx(sheet, starttag);
+            }
+            else if (!string.IsNullOrEmpty(start))
+            {
+                startaddress = new CellAddress(new CellReference(start));
+            }
+            else
+            {
+                startaddress = new CellAddress(new CellReference("A0"));
+            }
+            if (!string.IsNullOrEmpty(endtag))
+            {
+                endaddress = findXslx(sheet, endtag);
+            }
+            else if (!string.IsNullOrEmpty(end))
+            {
+                endaddress = new CellAddress(new CellReference(end));
+            }
+            else
+            {
+                endaddress = null;
+            }
+            var offsetr = 0;
+            var offsetc = 0;
+            if (!string.IsNullOrEmpty(offset))
+            {
+                var sp = offset.Split(';');
+                foreach (var ts in sp)
+                {
+                    var sparray = ts.Split(':');
+                    if (sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
+                    {
+                        offsetc = Convert.ToInt32(sparray[1]);
+                    }
+                    else
+                    {
+                        offsetr = Convert.ToInt32(sparray[1]);
+                    }
+                }
+            }
+            var firstrow = startaddress == null ? sheet.FirstRowNum : startaddress.Row + offsetr;
+            var lastrow = (endaddress == null) ? sheet.LastRowNum : endaddress.Row;
+            var table = new DataTable();
+            for (int r = firstrow; r < lastrow; r++)
+            {
+                var row = sheet.GetRow(r);
+                if (row == null) continue;
+                var lastcell = row.LastCellNum;
+                var firstcell = row.FirstCellNum + offsetc;
+                if (r == firstrow)
+                {
+                    for (int c = firstcell; c < lastcell; c++)
+                    {
+                        var cell = row.GetCell(c);
+                        if (cell == null) continue;
+                        var strval = getCellValue(cell).Trim();
+                        if (!string.IsNullOrEmpty(strval))
+                        {
+                            table.Columns.Add(new DataColumn(strval));
+                        }
+                    }
+                }
+                else
+                {
+                    var dataRow = table.NewRow();
+                    var array = new string[table.Columns.Count];
+                    for (var c = 0; c < table.Columns.Count; c++)
+                    {
+                        var cell = row.GetCell(c);
+                        var val = getCellValue(cell).Trim();
+                        array[c] = val;
+                    }
+                    dataRow.ItemArray = array;
+                    table.Rows.Add(dataRow);
+                }
+            }
+            return table;
+        }
+
+        private static CellAddress findXslx(ISheet sheet, string key)
         {
             var lastrow = sheet.LastRowNum;
             var firstrow = sheet.FirstRowNum;
@@ -231,7 +473,8 @@ namespace ConsoleApp1
                     //{
                     //    return cell.Address;
                     //}
-                    if (match( key, strval)) {
+                    if (match(key, strval))
+                    {
                         return cell.Address;
                     }
                 }
