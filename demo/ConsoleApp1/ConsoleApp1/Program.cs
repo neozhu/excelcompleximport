@@ -349,8 +349,11 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    copyelement = new XElement(name);
-                    root.Add(copyelement);
+                    if (element.Parent != null)
+                    {
+                        copyelement = new XElement(name);
+                        root.Add(copyelement);
+                    }
                     foreach (var child in element.Elements())
                     {
                         if (copyelement != null)
@@ -444,11 +447,17 @@ namespace ConsoleApp1
                 {
                     var dataRow = table.NewRow();
                     var array = new string[table.Columns.Count];
-                    for (var c = 0; c < table.Columns.Count; c++)
+                    //for (var c = 0; c < table.Columns.Count; c++)
+                    //{
+                    //    var cell = row.GetCell(firstcell+c);
+                    //    var val = getCellValue(cell).Trim();
+                    //    array[c] = val;
+                    //}
+                    for (int c = firstcell; c < lastcell; c++)
                     {
-                        var cell = row.GetCell(firstcell+c);
+                        var cell = row.GetCell(c);
                         var val = getCellValue(cell).Trim();
-                        array[c] = val;
+                        array[c- firstcell] = val;
                     }
                     dataRow.ItemArray = array;
                     table.Rows.Add(dataRow);
