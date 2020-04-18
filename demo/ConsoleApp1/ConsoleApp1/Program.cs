@@ -418,14 +418,17 @@ namespace ConsoleApp1
             var firstrow = startaddress == null ? sheet.FirstRowNum : startaddress.Row + offsetr;
             var lastrow = (endaddress == null) ? sheet.LastRowNum : endaddress.Row;
             var table = new DataTable();
+            var lastcell = 0; //row.LastCellNum;
+            var firstcell = 0; //row.FirstCellNum + offsetc;
             for (int r = firstrow; r < lastrow; r++)
             {
                 var row = sheet.GetRow(r);
                 if (row == null) continue;
-                var lastcell = row.LastCellNum;
-                var firstcell = row.FirstCellNum + offsetc;
+               
                 if (r == firstrow)
                 {
+                     lastcell =  row.LastCellNum;
+                     firstcell = row.FirstCellNum + offsetc;
                     for (int c = firstcell; c < lastcell; c++)
                     {
                         var cell = row.GetCell(c);
@@ -443,7 +446,7 @@ namespace ConsoleApp1
                     var array = new string[table.Columns.Count];
                     for (var c = 0; c < table.Columns.Count; c++)
                     {
-                        var cell = row.GetCell(c);
+                        var cell = row.GetCell(firstcell+c);
                         var val = getCellValue(cell).Trim();
                         array[c] = val;
                     }
