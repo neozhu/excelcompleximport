@@ -1,7 +1,7 @@
 # excelcompleximport
 复杂格式excel转换，excel 转换成 xml
 
-配置xml样例
+```配置xml样例
 <packinglist>
     <head replicate="false">
         <INVOICEDATE start-tag="INVOICE DATE*" data-formatter="$.Split(':')[1]"/>
@@ -28,3 +28,4 @@
         <CUST_PN data-field="CUST_PN" data-type="string" />
     </detail>
 </packinglist>
+```
