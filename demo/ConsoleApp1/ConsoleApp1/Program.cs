@@ -125,17 +125,18 @@ namespace ConsoleApp1
 
                     if (table.Rows.Count > 0)
                     {
-                        var mapfields = element.Elements();
+                
                         foreach (DataRow dr in table.Rows)
                         {
                             var xelement = new XElement(name);
-                            foreach (var ele in mapfields)
+                            foreach (var fieldelement in element.Elements())
                             {
-                                var elename = ele.Name;
-                                var fieldname = ele.Attributes().Where(x => x.Name == "data-field").Select(x => x.Value).FirstOrDefault();
-                                var datatype = ele.Attributes().Where(x => x.Name == "data-type").Select(x => x.Value);
-                                var fieldval = table.Columns.Contains(fieldname) ? dr[fieldname] : "";
-                                var xfelement = new XElement(elename, fieldval);
+                                var elename = fieldelement.Name;
+                                var fieldname = fieldelement.Attributes().Where(x => x.Name == "data-field").Select(x => x.Value).FirstOrDefault();
+                                var datatype = fieldelement.Attributes().Where(x => x.Name == "data-type").Select(x => x.Value);
+                                var defaultvalue = fieldelement.Attributes().Where(x => x.Name == "data-default").FirstOrDefault()?.Value;
+                                var fieldval = table.Columns.Contains(fieldname) ? dr[fieldname].ToString() : "";
+                                var xfelement = new XElement(elename, string.IsNullOrEmpty(fieldval)? defaultvalue: fieldval);
                                 xelement.Add(xfelement);
                             }
                             descxml.Root.Add(xelement);
