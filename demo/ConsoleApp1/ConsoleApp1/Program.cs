@@ -18,9 +18,9 @@ namespace ConsoleApp1
         static async Task Main(string[] args)
         {
             var m = match("TOTAL", "TOTAL");
-            var path = @"d:\9C箱单0000880680.xlsx";
             var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
             string result = await CSharpScript.EvaluateAsync<string>("\"INVOICE DATE(發票日期):20180904\".Split(':')[1]");
+            var path = @"d:\9C箱单0000880680.xlsx";
             var configpath = @"d:\XslImportRule1.xml";
             var xdoc = XDocument.Load(configpath);
             var root = xdoc.Root.Name;
