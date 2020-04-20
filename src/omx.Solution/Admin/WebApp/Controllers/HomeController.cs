@@ -11,7 +11,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-  //[Authorize]
+  [Authorize]
   [RoutePrefix("Home")]
   public class HomeController : Controller
   {

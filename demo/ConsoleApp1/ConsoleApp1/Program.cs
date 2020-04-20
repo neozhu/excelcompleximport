@@ -17,13 +17,29 @@ namespace ConsoleApp1
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static string getphonenum(string str) {
+            //"广州市海珠区滨江东路郭墩街72-74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)"
+            var l = str.Length;
+            var index1 = str.LastIndexOf("(");
+            var index2 = str.LastIndexOf(")");
+            var test = str.Substring(index1+1, l - index1-2 );
+            var array = test.Split(' ');
+            var p = array[0];
+            return p;
+        }
+        static void  Main(string[] args)
         {
-            var m = match("TOTAL", "TOTAL");
-            var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
-            string result = await CSharpScript.EvaluateAsync<string>("\"INVOICE DATE(發票日期):20180904\".Split(':')[1]");
-            var path = @"d:\9C箱单0000880680.xlsx";
-            var configpath = @"d:\XslImportRule1.xml";
+            var p = "广州市海珠区滨江东路郭墩街72 - 74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)";
+            var p1 = getphonenum(p);
+            var d = System.DateTime.Now.ToString("yyyyMMdd200000");
+            //var m = match("TOTAL", "TOTAL");
+            //var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
+            //var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
+            var str = "$.Substring($.LastIndexOf(\"(\")+1,$.Length-$.LastIndexOf(\"(\") -2 ).Split(' ')[0]";
+            str = str.Replace("$", "\"" + p + "\"");
+            string result =  CSharpScript.EvaluateAsync<string>(str).Result;
+            var path = @"d:\JUL996.xls";
+            var configpath = @"d:\xmn-rule1.xml";
             var xdoc = XDocument.Load(configpath);
             var root = xdoc.Root.Name;
             var descxml = new XDocument();
@@ -39,7 +55,7 @@ namespace ConsoleApp1
             return;
 
 
-
+            #region //
             //foreach (var element in xdoc.Root.Elements())
             //{
             //    var name = element.Name;
@@ -224,7 +240,7 @@ namespace ConsoleApp1
             //}
             //descxml.Save("d:\\output.xml");
             //var sheet = workbook.GetSheetAt(0);
-
+            #endregion
         }
         static IWorkbook Create(FileStream filestream,string ext) {
      
@@ -264,13 +280,18 @@ namespace ConsoleApp1
             //    copyelement = new XElement(name);
             //    root.Add(copyelement);
             //}
-            if (!string.IsNullOrEmpty(replicate) && (!string.IsNullOrEmpty(sheetname) || !string.IsNullOrEmpty(sheetnum))) {
+            if (!string.IsNullOrEmpty(replicate)) {
                 if (!string.IsNullOrEmpty(sheetname))
                 {
                     sheet = book.GetSheet(sheetname);
-                }else
+                }
+                else if (!string.IsNullOrEmpty(sheetnum))
                 {
                     sheet = book.GetSheetAt(Convert.ToInt32(sheetnum));
+                }
+                else
+                {
+                    sheet = book.GetSheetAt(0);
                 }
             }
      
@@ -327,11 +348,16 @@ namespace ConsoleApp1
                     else if (!string.IsNullOrEmpty(defaultvalue))
                     {
                         copyelement.SetValue(defaultvalue);
+                    }else if (!string.IsNullOrEmpty(formatter))
+                    {
+                        var codescript = formatter;
+                        var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
+                        copyelement.SetValue(fval);
                     }
                 }
                 else
                 {
-                   if(dr.Table.Columns.Contains(fieldname))
+                   if(!string.IsNullOrEmpty(fieldname) && dr.Table.Columns.Contains(fieldname))
                     {
                         var val =  dr[fieldname].ToString();
                         if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
