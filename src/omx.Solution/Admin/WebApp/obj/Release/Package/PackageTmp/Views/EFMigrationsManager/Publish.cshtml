@@ -1,0 +1,190 @@
+﻿@model NB.Apps.EFMigrationsManager.Models.EFMigrationDetails
+
+@{
+  Layout = null;
+  /**/
+  ViewBag.Title = "DB Maintenance";
+  ViewBag.Title = Model.IsRollback ? "Restore Migration(s)" : "Update Database";
+  var statusMessage = TempData["StatusMessage"] as string;
+
+  var disclaimerMessage = Model.IsRollback ? "Disclaimer: Restoring to previous Target Migration may break the application." :
+                              "Disclaimer: The latest Target Migration must be applied to continue using this application.";
+
+  var noAvailableTargetMigrationsMessage = Model.IsRollback ? "No migration(s) available to restore."
+      : "Latest migration was applied.";
+
+}
+
+<!DOCTYPE html>
+<html lang="en-us" id="lock-page">
+<head>
+  <meta charset="utf-8">
+  <title>
+    @ViewBag.AppName
+  </title>
+  <meta name="description" content="Big Error">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+  <!-- Call App Mode on ios devices -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- Remove Tap Highlight on Windows Phone IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+  <!-- base css -->
+  <link rel="stylesheet" media="screen, print" href="~/Content/css/vendors.bundle.css">
+  <link rel="stylesheet" media="screen, print" href="~/Content/css/app.bundle.css">
+  <!-- Place favicon.ico in the root directory -->
+  <link rel="apple-touch-icon" sizes="180x180" href="~/Content/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="~/Content/image/png" sizes="32x32" href="~/Content/img/favicon/favicon-32x32.png">
+  <link rel="mask-icon" href="~/Content/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <!-- Optional: page related CSS-->
+  <link rel="stylesheet" media="screen, print" href="~/Content/css/notifications/sweetalert2/sweetalert2.bundle.css">
+
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+    <!-- MAIN CONTENT -->
+    <div class="page-inner bg-brand-gradient">
+      <div class="page-content-wrapper bg-transparent m-0">
+        <div class="height-10 w-100 shadow-lg px-4 bg-brand-gradient">
+          <div class="d-flex align-items-center container p-0">
+            <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9">
+              <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
+                <img src="~/Content/img/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                <span class="page-logo-text mr-1">@ViewBag.AppName</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="d-flex flex-1" style="background: url(/Content/img/svg/pattern-1.svg) no-repeat center bottom fixed; background-size: cover;">
+          <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0   align-items-center justify-content-center">
+
+
+            <div id="panel-2" class="panel">
+              <div class="panel-hdr">
+                <h2>
+                  <i class="fal fa-database fa-fw "></i>
+                  更新数据库版本 <span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+
+                </div>
+              </div>
+              <div class="panel-container show">
+                <div class="panel-content">
+                  <div class="panel-tag">
+                    @if (!string.IsNullOrEmpty(statusMessage))
+                    {
+                      <p>
+
+                        @statusMessage
+                      </p>
+                    }
+                    else
+                    {
+                      if (!Model.HasTargetMigrationExists)
+                      {
+                        <p>
+                          @noAvailableTargetMigrationsMessage
+                        </p>
+                      }
+                      else
+                      {
+                        <p>
+                          @disclaimerMessage
+                        </p>
+                      }
+                    }
+                  </div>
+                </div>
+                <div class="panel-content p-0">
+                  @using (Html.BeginForm("Publish", "EFMigrationsManager", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "efmigrationsmanager", @class = "needs-validation", role = "form", novalidate = "novalidate" }))
+                  {
+                    <div class="panel-content">
+                      @Html.AntiForgeryToken()
+                      @Html.HiddenFor(model => model.IsRollback)
+                      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                      <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                          @Html.LabelFor(model => model.CurrentMigrationDisplayValue, new { @class = "form-label" })
+                          @Html.TextBoxFor(model => model.CurrentMigrationDisplayValue, new { @class = "form-control", disabled = "disabled" })
+
+                        </div>
+                      </div>
+                      <div class="form-row ">
+                        <div class="col-md-8 mb-3">
+                          @Html.LabelFor(model => model.TargetMigration, new { @class = "form-label" })
+                          @Html.DropDownListFor(model => model.TargetMigration, Model.Migrations, new { @class = "form-control selectTargetMigration" })
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label class = "form-label">&nbsp;</label>
+                          @if (Model.IsRollback)
+                          {
+                            @Html.ActionLink("Show Pending Migration(s)", "Publish", null, new { @class = "btn btn-light btn-pills waves-effect waves-themed" ,style="display:block" })
+                          }
+                          else
+                          {
+                            @Html.ActionLink("Show Previous Migration(s)", "Publish", new { isRollback = true }, new { @class = "btn btn-light btn-pills waves-effect waves-themed",style="display:block"})
+                          }
+                        </div>
+                      </div>
+
+
+
+
+                    </div>
+
+                    <div class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
+
+                      <button class="btn  btn-primary  btnUpdateDatabase @(!Model.HasTargetMigrationExists ? "disabled" : "")  ml-auto"
+                              title="Update Database" type="button">
+                        Apply Migration(s)
+
+                      </button>
+                      <div class="loader"></div>
+                    </div>
+
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <script src="~/Scripts/notifications/sweetalert2/sweetalert2.bundle.js"></script>
+  <script src="~/Scripts/lib/jquery/dist/jquery.min.js"></script>
+
+  <script type="text/javascript">
+
+    $(".btnUpdateDatabase").on("click", function()
+                {
+                    Swal.fire(
+                    {
+                        title: "Are you sure?",
+                        text: "The following migration(s) will be @(Model.IsRollback ? "restored" : "applied").",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes"
+                    }).then(function(result)
+                    {
+                        if (result.value)
+                        {
+                          Swal.fire("migration", "Database updating....", "success");
+                          $('#efmigrationsmanager').submit();
+                        }
+                    });
+    });
+
+
+  </script>
+
+</body>
+</html>

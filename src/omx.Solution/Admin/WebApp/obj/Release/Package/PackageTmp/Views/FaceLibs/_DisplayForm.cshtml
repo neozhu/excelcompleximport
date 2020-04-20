@@ -1,0 +1,79 @@
+﻿﻿@model WebApp.Models.FaceLib
+<!-- begin master section -->
+<div class="row">
+    <div class="col col-lg-12 col-md-12">
+<!--begin facelib form  -->
+<form id="facelib_form" class="smart-form" method="post" novalidate >
+@Html.AntiForgeryToken()
+  <input type="hidden" id="@Html.IdFor(model => model.Id)" 
+                       name="@Html.NameFor(model => model.Id)" 
+                       value="@Html.ValueFor(model => model.Id)" />
+ <fieldset>
+     <div class="row">
+			              <!--标签-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Label) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Label)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--描述-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.Description) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.Description)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--存放路径-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ImgPath) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ImgPath)
+            </label>
+            </section>
+ 		 
+	    
+			              <!--访问地址-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ImgUrl) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ImgUrl)
+            </label>
+            </section>
+ 		 
+	   </div>
+	    
+     <div class="row">
+			              <!--图片数据-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ImgRawData) </label>
+            <label class="label">
+            @Html.DisplayFor(model => model.ImgRawData)
+            </label>
+            </section>
+					 
+	    
+			              <!--Base64数据-->
+            <section class="col col-3">
+            <label class="label">@Html.DisplayNameFor(model => model.ImgBase64Data) </label>
+            <label class="label">
+			 @Html.DisplayFor(model => model.ImgBase64Data)
+            </label>
+            </section>
+ 		 
+	    
+   </div>
+	    
+</fieldset>
+</form>
+<!-- end facelib form  -->
+</div>
+</div>
+<!-- end master section -->
+<!--========================================================================================-->
+
+

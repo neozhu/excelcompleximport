@@ -1,0 +1,272 @@
+﻿﻿@model WebApp.Models.FaceLib
+<!-- 弹出窗体form表单 -->
+ <div id="facelibdetailwindow" hidden="hidden" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(facelibhasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                          hook = false;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:1420px;height:520px">
+    <!-- begin toolbar -->
+    <div class="window-body-toolbar">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="btn-group btn-group-sm">
+                       <button name="saveitembutton" onclick="savefacelibitem()" class="btn btn-default"> 
+                          <i class="fa fa-floppy-o"></i> @Html.L("Save") 
+                       </button>
+                </div>
+                <div class="btn-group btn-group-sm" id="deleteitem-btn-group">
+                  <button onclick="deletefacelibitem()" class="btn btn-danger">
+                    <i class="fa fa-trash-o"></i> @Html.L("Delete")
+                  </button>
+                </div>
+                <div class="btn-group btn-group-sm" style="display:none">
+                    <button onclick="todo()" class="btn btn-default">
+                        <i class="fa fa-print"></i> ToDo
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align-right">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn   btn-success" onclick="closefacelibdetailwindow()">
+                    <i class="fa fa-chevron-left"></i>
+                    @Html.L("Close")
+                </button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- end toolbar -->
+    <!-- begin window body -->
+    <div class="widget-body">
+           <form id="facelib_form" 
+              class="easyui-form form-horizontal padding-10" 
+              method="post" 
+              data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                              $('button[name*=\'saveitembutton\']').prop('disabled', false);
+                             },
+                             onLoadSuccess:function(data){
+                               hook = false;
+                               $('button[name*=\'saveitembutton\']').prop('disabled', true);
+                             }">
+  @Html.AntiForgeryToken()
+   <!--Primary Key-->
+  @Html.HiddenFor(model=>model.Id)
+    <!--图片数据-->
+ @Html.HiddenFor(model=>model.ImgRawData)
+   <!--Base64数据-->
+ @Html.HiddenFor(model=>model.ImgBase64Data)
+  <fieldset>
+<!-- begin row -->
+   <!--标签-->
+  <div class="form-group  col-md-3">
+        <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Label)</label>
+		<div class="col-md-9">  
+			<input id="@Html.IdFor(model => model.Label)" 
+				   name="@Html.NameFor(model => model.Label)" 
+				   value="@Html.ValueFor(model => model.Label)"
+				   tabindex="0" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Label)',
+								 required:false, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+  </div>
+				      <!--描述-->
+  <div class="form-group  col-md-3">
+        <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.Description)</label>
+		<div class="col-md-9">  
+			<input id="@Html.IdFor(model => model.Description)" 
+				   name="@Html.NameFor(model => model.Description)" 
+				   value="@Html.ValueFor(model => model.Description)"
+				   tabindex="1" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Description)',
+								 required:false, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+  </div>
+				      <!--存放路径-->
+  <div class="form-group  col-md-3">
+        <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ImgPath)</label>
+		<div class="col-md-9">  
+			<input id="@Html.IdFor(model => model.ImgPath)" 
+				   name="@Html.NameFor(model => model.ImgPath)" 
+				   value="@Html.ValueFor(model => model.ImgPath)"
+				   tabindex="2" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.ImgPath)',
+								 required:false, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+  </div>
+				      <!--访问地址-->
+  <div class="form-group  col-md-3">
+        <label class="col-md-3 control-label">@Html.DisplayNameFor(model => model.ImgUrl)</label>
+		<div class="col-md-9">  
+			<input id="@Html.IdFor(model => model.ImgUrl)" 
+				   name="@Html.NameFor(model => model.ImgUrl)" 
+				   value="@Html.ValueFor(model => model.ImgUrl)"
+				   tabindex="3" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.ImgUrl)',
+								 required:false, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+  </div>
+				          <!--end row-->
+	   	          </fieldset>
+   </form>
+
+<!--end form表单界面-->
+<!--========================================================================================-->
+     </div>
+    <!--end window body -->
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+    //判断新增编辑状态
+    var MODELSTATE = 'Added';
+    var facelibid = null;
+    function openfacelibdetailwindow(data,state) {
+         MODELSTATE = state;
+         initfacelibdetailview();
+         facelibid = (data.Id || 0);
+         $("#facelibdetailwindow").window("open");
+         $('#facelib_form').form('reset');
+         $('#facelib_form').form('load', data);
+             }
+  //删除当前记录
+  function deletefacelibitem() {
+    $.messager.confirm('确认', '你确定要删除该记录?', result => {
+      if (result) {
+        const url = `/FaceLibs/Delete/${facelibid}`;
+        $.get(url).done(res => {
+          if (res.success) {
+            toastr.success("删除成功");
+            $dg.datagrid('reload');
+            $("#facelibdetailwindow").window("close");
+          } else {
+            $.messager.alert("错误", res.err, "error");
+          }
+        });
+      }
+    });
+  }
+    //async 保存数据
+    async function savefacelibitem() { 
+      const $facelibform = $('#facelib_form');
+      if ($facelibform.form('enableValidation').form('validate')) {
+            let facelib = $facelibform.serializeJSON();
+            let url = '/FaceLibs/Edit';
+            //判断是新增或是修改方法
+            if (MODELSTATE === 'Added') {
+                url = '/FaceLibs/Create';
+            }
+            var token = $('input[name="__RequestVerificationToken"]', $facelibform).val();
+            $.messager.progress({ title: '请等待', msg: '正在保存数据...', interval:200});
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        __RequestVerificationToken: token,
+                        facelib:facelib
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(response => {
+                    $.messager.progress('close');
+                    if (response.success) {
+                        hook = false;
+                        $facelibform.form('disableValidation');
+                        $dg.datagrid('reload');
+                        $('#facelibdetailwindow').window("close");
+                        toastr.success("保存成功");  
+                    } else {
+                        $.messager.alert("错误",   response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                       $.messager.progress('close');
+                       $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+                    });
+        }
+    }
+    //关闭窗口
+    function closefacelibdetailwindow() {
+        $('#facelibdetailwindow').window('close');
+    }
+    //todo
+    function todo() {
+         console.log('todo.....');
+    }
+     //判断是否有没有保存的记录
+     function facelibhasmodified() {
+            return hook;
+
+     }
+
+
+function initfacelibdetailview() {
+  //判断是否显示功能按钮
+  if (MODELSTATE === 'Added') {
+    $('#deleteitem-btn-group').hide();
+  } else {
+    $('#deleteitem-btn-group').show();
+  }
+ 
+//回车光标移动到下个输入控件
+}
+</script>
+

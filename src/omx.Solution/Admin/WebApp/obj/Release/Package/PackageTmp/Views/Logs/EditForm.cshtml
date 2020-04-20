@@ -1,0 +1,109 @@
+﻿﻿@model WebApp.Models.Log
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin log form  -->
+<form id="log_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--主机名-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.MachineName) </label>
+			@Html.EditorFor(x => x.MachineName, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.MachineName) } })
+      
+         </div>
+
+       <!--时间-->
+       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Logged) </label>
+            <div class="input-group">
+			  @Html.EditorFor(x => x.Logged, 
+                         new { htmlAttributes = new { @class = "form-control datepicker hasDatepicker",
+                               placeholder = Html.DisplayNameFor(x => x.Logged ) } })
+               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			 </div>
+         </div>
+
+        <!--级别-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Level) </label>
+			@Html.EditorFor(x => x.Level, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Level) } })
+      
+         </div>
+
+        <!--信息-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Message) </label>
+			@Html.EditorFor(x => x.Message, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Message) } })
+      
+         </div>
+
+        <!--异常信息-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Exception) </label>
+			@Html.EditorFor(x => x.Exception, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Exception) } })
+      
+         </div>
+
+        <!--事件属性-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Properties) </label>
+			@Html.EditorFor(x => x.Properties, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Properties) } })
+      
+         </div>
+	   </div>
+    </div>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--使用账号-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.User) </label>
+			@Html.EditorFor(x => x.User, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.User) } })
+      
+         </div>
+
+        <!--日志-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Logger) </label>
+			@Html.EditorFor(x => x.Logger, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Logger) } })
+      
+         </div>
+
+        <!--站点-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Callsite) </label>
+			@Html.EditorFor(x => x.Callsite, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Callsite) } })
+      
+         </div>
+
+		
+      <!--已处理-->
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+              <label class="control-label"><span class="required">@Html.DisplayNameFor(model => model.Resolved)</span> </label>
+              <div class="checkbox  no-margin">
+              <label>
+                 <input id="@Html.IdFor(model => model.Resolved)"
+                       name="@Html.NameFor(model => model.Resolved)"
+                       value="true" @(Model.Resolved ? "checked=\"checked\"" : "")
+                       class="checkbox style-0"
+                       tabindex="6"
+                       type="checkbox" />
+                <span>@Html.DisplayNameFor(model => model.Resolved)</span>
+              </label>
+            </div>
+      </div>
+	    
+   </div>
+  </div>
+</fieldset>
+</form>
+<!-- end log form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+

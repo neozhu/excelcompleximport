@@ -1,0 +1,13 @@
+﻿﻿@model WebApp.Models.Category
+  <div class="form-row">
+   @Html.HiddenFor(x=>x.Id)
+         <!--Name-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="form-label text-danger">@Html.DisplayNameFor(model => model.Name)</label>
+			@Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Name) } })
+      
+         </div>
+
+	    
+</div>
+

@@ -1,0 +1,336 @@
+﻿﻿@model WebApp.Models.Product
+<!-- 弹出编辑窗体表单 -->
+ <div id="productdetailwindow" class="easyui-window" 
+      title="明细数据" 
+      data-options="modal:true,
+                    closed:true,
+                    minimizable:false,
+                    collapsible:false,
+                    maximized:false,
+                    iconCls:'icon-more',
+                    footer:'#windowfooter',
+                    closeDuration:200,
+                    closeAnimation:'slide',
+                    openDuration:300,
+                    openAnimation:'slide',
+                    onBeforeClose:function(){
+                      var that = $(this);
+                      if(producthasmodified()){
+                        $.messager.confirm('确认','你确定要放弃保存修改的记录?',function(r){
+                        if (r){
+                          var opts = that.panel('options');
+                          var onBeforeClose = opts.onBeforeClose;
+                          opts.onBeforeClose = function(){};
+                          that.panel('close');
+                          opts.onBeforeClose = onBeforeClose;
+                          hook = false;
+                        }
+                        });
+                        return false;
+                      }
+                    },
+                    onOpen:function(){
+                       $(this).window('vcenter');
+                       $(this).window('hcenter');
+                    },
+                    onRestore:function(){
+                    },
+                    onMaximize:function(){
+                    }
+                    " style="width:800px;height:450px;display:none">
+  <!-- toolbar -->
+  <div class="panel-content py-2 rounded-bottom border-faded border-left-0 border-right-0  text-muted bg-subtlelight-fade sticky-top">
+    <div class="row align-items-center m-0">
+      <div class="col">
+        <div class="btn-group btn-group-sm">
+          <button name="saveitembutton" onclick="saveproductitem()" class="btn btn-default">
+            <i class="fal fa-save"></i> @Html.L("Save")
+          </button>
+        </div>
+        <div class="btn-group btn-group-sm" id="deleteitem-btn-group">
+          <button onclick="deleteproductitem()" class="btn btn-danger">
+            <i class="fal fa-times"></i> @Html.L("Delete")
+          </button>
+        </div>
+      
+      </div>
+      <div class="col d-flex">
+
+      </div>
+    </div>
+  </div>
+ <!-- panel container form  -->
+  <div class="panel-container show">
+    <div class="panel-content">
+           <form id="product_form" 
+              class="easyui-form form-horizontal padding-10" 
+              method="post" 
+              data-options="novalidate:true,
+                            onChange: function(target){
+                              hook = true;
+                              $('button[name*=\'saveitembutton\']').prop('disabled', false);
+                             },
+                             onLoadSuccess:function(data){
+                               hook = false;
+                               $('button[name*=\'saveitembutton\']').prop('disabled', true);
+                             }">
+  @Html.AntiForgeryToken()
+   <!--Primary Key-->
+  @Html.HiddenFor(model=>model.Id)
+   <fieldset class="form-group">
+   <div class="row m-1">
+
+   <!--名称-->
+        <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.Name)</label>
+		<div class="col-md-4 mb-1">  
+			<input id="@Html.IdFor(model => model.Name)" 
+				   name="@Html.NameFor(model => model.Name)" 
+				   value="@Html.ValueFor(model => model.Name)"
+				   tabindex="0" required
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Name)',
+								 required:true, 
+                                 validType: 'length[0,50]'
+                                 " />
+       </div>
+				   
+   <!--单位-->
+        <label class="col-md-2 mb-1 form-label text-right ">@Html.DisplayNameFor(model => model.Unit)</label>
+		<div class="col-md-4 mb-1">  
+			<input id="@Html.IdFor(model => model.Unit)" 
+				   name="@Html.NameFor(model => model.Unit)" 
+				   value="@Html.ValueFor(model => model.Unit)"
+				   tabindex="1" 
+				   class="easyui-textbox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.Unit)',
+								 required:false, 
+                                 validType: 'length[0,10]'
+                                 " />
+       </div>
+				   
+
+   <!--单价-->
+       <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.UnitPrice)</label>
+	   <div class="col-md-4 mb-1">  
+             <input id="@Html.IdFor(model => model.UnitPrice)"
+				   name="@Html.NameFor(model => model.UnitPrice)" 
+				   value="@Html.ValueFor(model => model.UnitPrice)"
+				   tabindex="2" 
+				   class="easyui-numberspinner" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.UnitPrice)',
+								 required:true,formatter:numberformatter,
+                                 precision:2,
+                                 
+                                 "  />
+
+        </div>
+				   
+   <!--库存-->
+       <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.StockQty)</label>
+	   <div class="col-md-4 mb-1">  
+			<input id="@Html.IdFor(model => model.StockQty)"
+				   name="@Html.NameFor(model => model.StockQty)" 
+				   value="@Html.ValueFor(model => model.StockQty)"
+				   tabindex="3" 
+				   class="easyui-numberspinner" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.StockQty)',
+								 required:true,formatter:intformatter,
+                                 
+                                 " />
+      </div>
+				   
+
+     <!--是否需要QC-->
+       <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.IsRequiredQc)</label>
+	   <div class="col-md-4 mb-1">      
+               <div class="custom-control custom-checkbox">
+                            <input id="@Html.IdFor(model => model.IsRequiredQc)"
+                                   name="@Html.NameFor(model => model.IsRequiredQc)"
+                                   value="true" @(Model.IsRequiredQc ? "checked=\"checked\"" : "")
+                                   data-unchecked-value="false"
+                                   tabindex="4"
+                                   class="custom-control-input"
+                                   type="checkbox" />
+                            <label class="custom-control-label" for="@Html.NameFor(model => model.IsRequiredQc)"> @Html.DisplayNameFor(model => model.IsRequiredQc)</label>
+              </div>
+        </div>
+				   
+   <!--确认日期-->
+      <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.ConfirmDateTime)</label>
+		<div class="col-md-4 mb-1">  
+			<input id="@Html.IdFor(model => model.ConfirmDateTime)" 
+			       name="@Html.NameFor(model => model.ConfirmDateTime)" 
+                   value="@Html.ValueFor(model => model.ConfirmDateTime)"
+				   tabindex="5" required
+				   class="easyui-datetimebox" 
+                   style="width:100%"
+				   type="text" 
+				   data-options="prompt:'@Html.DisplayNameFor(model => model.ConfirmDateTime)',
+								 required:true,
+								 formatter:datetimeformatter" />
+    </div>
+				   
+
+    <!--产品类别-->
+        <label class="col-md-2 mb-1 form-label text-right text-danger">@Html.DisplayNameFor(model => model.CategoryId)</label>
+		<div class="col-md-4 mb-1">   	
+            <input id="@Html.IdFor(model => model.CategoryId)"
+			       name="@Html.NameFor(model => model.CategoryId)"
+				   value="@Html.ValueFor(model => model.CategoryId)"
+                   tabindex="6" required
+              	   class="easyui-combobox"      
+                   style="width:100%"
+                   data-options="prompt:'@Html.DisplayNameFor(model => model.CategoryId)' ,
+						required:true ,
+						valueField: 'Id',
+						textField:  'Name' ,
+                        validateOnCreate:false,
+                        validateOnBlur:true,
+                        validType:'combocheck[\'#CategoryId\',\'请选择产品类别\']',
+						url: '/Products/GetCategories' ,
+						onSelect: function(item){
+						  //console.log(item);
+				        }">
+       </div>
+	   
+	    </div> 
+      </fieldset>
+   </form>
+    </div>
+    </div>
+</div>
+<div id="windowfooter" style="padding:5px;">&nbsp;</div>
+<!-- 弹出窗体form表单 -->
+<!-- 弹出编辑对话框 -->
+
+<!--begin popup detailview javascript block -->
+<script type="text/javascript">
+    //判断新增编辑状态
+    var MODELSTATE = 'Added';
+    var productid = null;
+    function openproductdetailwindow(data,state) {
+         MODELSTATE = state;
+         initproductdetailview();
+         productid = (data.Id || 0);
+         $('#productdetailwindow').window('open');
+         $('#product_form').form('reset');
+         $('#product_form').form('load', data);
+             }
+  //删除当前记录
+  function deleteproductitem() {
+    $.messager.confirm('确认', '你确定要删除该记录?', result => {
+      if (result) {
+        const url = `/Products/Delete/${productid}`;
+        $.get(url).done(res => {
+          if (res.success) {
+            toastr.success("删除成功");
+            $dg.datagrid('reload');
+            $('#productdetailwindow').window('close');
+          } else {
+            $.messager.alert('错误', res.err, 'error');
+          }
+        });
+      }
+    });
+  }
+    //async 保存数据
+    async function saveproductitem() { 
+      const $productform = $('#product_form');
+      if ($productform.form('enableValidation').form('validate')) {
+            let product = $productform.serializeJSON();
+            let url = '/Products/Edit';
+            //判断是新增或是修改方法
+            if (MODELSTATE === 'Added') {
+                url = '/Products/Create';
+            }
+            var token = $('input[name="__RequestVerificationToken"]', $productform).val();
+            $.messager.progress({ title: '请等待', msg: '正在保存数据...', interval:200});
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        __RequestVerificationToken: token,
+                        product:product
+                    },
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(response => {
+                    $.messager.progress('close');
+                    if (response.success) {
+                        hook = false;
+                        $productform.form('disableValidation');
+                        $dg.datagrid('reload');
+                        $('#productdetailwindow').window("close");
+                        toastr.success("保存成功");  
+                    } else {
+                        $.messager.alert("错误",   response.err, "error");
+                    }
+                    })
+                .fail((jqXHR, textStatus, errorThrown) => {
+                       $.messager.progress('close');
+                       $.messager.alert('异常', `${jqXHR.status}: ${jqXHR.statusText} `, 'error');
+                    });
+        }
+    }
+    //关闭窗口
+    function closeproductdetailwindow() {
+        $('#productdetailwindow').window('close');
+    }
+    //todo
+    function todo() {
+         console.log('todo.....');
+    }
+     //判断是否有没有保存的记录
+     function producthasmodified() {
+            return hook;
+
+     }
+
+
+function initproductdetailview() {
+  //判断是否显示功能按钮
+  if (MODELSTATE === 'Added') {
+    $('#deleteitem-btn-group').hide();
+  } else {
+    $('#deleteitem-btn-group').show();
+  }
+
+//回车光标移动到下个输入控件
+    //如果是枚举类型需要把numberbox改成combobox
+    //单价
+	$('#UnitPrice').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //如果是枚举类型需要把numberbox改成combobox
+    //库存
+	$('#StockQty').numberbox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //日期类型 确认日期
+	$('#ConfirmDateTime').datebox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+    //产品类别默认外键使用combobox,也可以使用combogrid
+	$('#CategoryId').combobox('textbox').bind('keydown', function (e) {
+      if (e.keyCode == 13) {
+        $(e.target).emulateTab();
+      }
+    });
+}
+</script>
+

@@ -1,0 +1,69 @@
+﻿    <!-- HEADER -->
+<header id="header">
+  <div id="logo-group">
+
+    <!-- PLACE YOUR LOGO HERE -->
+    <span id="logo"> <img src="~/Content/img/logo.png" alt="SmartAdmin"> </span>
+    @if (Request.IsAuthenticated)
+    {
+      <!-- Note: The activity badge color changes when clicked and resets the number to 0
+    Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
+
+      <span id="activity" disabled class="activity-dropdown"> <i class="fa fa-bell-o"></i> <b class="badge"> 0 </b> </span>
+
+      <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
+  <div class="ajax-dropdown">
+    <div class="btn-group btn-group-justified" data-toggle="buttons">
+      <label class="btn btn-default">
+        <input type="radio" name="activity" notifygroup="0">
+        系统推送(0) 
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="activity" notifygroup="1">
+        业务推送(0)
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="activity" notifygroup="2">
+        接口推送(0)
+      </label>
+      <label class="btn btn-default">
+        <input type="radio" name="activity" notifygroup="3">
+        人工推送(0)
+      </label>
+    </div>
+    <!-- notification content -->
+    <div class="ajax-notifications custom-scroll">
+
+      <ul class="notification-body">
+      </ul>
+
+    </div>
+    <!-- end notification content -->
+    <!-- footer: refresh area -->
+    <span>
+      <span id="lastupdatetime">Last updated on: 12/12/2013 9:43AM</span>
+      <button id="btn-loading" type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..." class="btn btn-xs btn-default pull-right">
+        <i class="fa fa-refresh"></i>
+      </button>
+    </span>
+     
+    <!-- end footer -->
+
+  </div>
+      <!-- END AJAX-DROPDOWN -->
+    }
+  </div>
+    <section id="top-right">
+        @if (@Model is HelperResult)
+        {
+            @Model
+        }
+        else
+        {
+            <div class="pull-right">
+                @Html.Partial("_TopRight")
+            </div>
+        }
+    </section>
+</header>
+<!-- END HEADER -->

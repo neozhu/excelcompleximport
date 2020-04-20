@@ -1,0 +1,84 @@
+2020-03-23 11:19:36.0644|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:23:17.9469|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:27:42.8580|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:30:33.9664|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:31:18.5633|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:33:16.3737|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 11:33:37.7889|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 12:18:14.8290|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 12:21:06.4569|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:07:53.7134|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:11:10.0562|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:12:15.0330|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:14:23.6815|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:23:45.8973|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:24:13.4050|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:24:27.8680|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:28:58.4690|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:29:56.4698|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-23 13:34:08.8122|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-24 07:35:56.7580|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-24 07:37:20.6782|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-24 07:38:37.8356|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-24 07:41:17.7788|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:20:11.8946|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:20:38.4073|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:23:42.2857|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:28:27.9034|FATAL|WebApp.MvcApplication|The controller for path '/js/src/carousel.js' was not found or does not implement IController.
+2020-03-25 08:30:17.2868|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:30:36.3527|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:32:01.7416|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:32:33.2409|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:33:58.8609|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:35:14.0047|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:35:55.5647|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:39:06.9942|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:39:51.8957|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:40:14.7283|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:40:55.1502|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:42:05.2899|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:44:29.5902|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:44:45.4660|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:47:47.7352|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:48:03.5520|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:48:23.3063|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:50:24.8692|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:56:04.4632|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:57:49.7914|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 08:59:10.5090|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-25 09:00:18.2414|FATAL|WebApp.MvcApplication|The controller for path '/sm/3a884fe0bdb97cb3a94b410e67cf38fdc248890d5581232077b3e6241e25cd21.map' was not found or does not implement IController.
+2020-03-27 17:17:13.7656|FATAL|WebApp.MvcApplication|The controller for path '/Content/app.bundle.css' was not found or does not implement IController.
+2020-03-27 17:17:25.8559|FATAL|WebApp.MvcApplication|The controller for path '/Content/app.bundle.css' was not found or does not implement IController.
+2020-03-27 17:31:10.7358|FATAL|WebApp.MvcApplication|A public action method 'js' was not found on controller 'WebApp.Controllers.EFMigrationsManagerController'.
+2020-03-27 17:31:10.7358|FATAL|WebApp.MvcApplication|A public action method 'img' was not found on controller 'WebApp.Controllers.EFMigrationsManagerController'.
+2020-03-27 17:31:10.7358|FATAL|WebApp.MvcApplication|A public action method 'js' was not found on controller 'WebApp.Controllers.EFMigrationsManagerController'.
+2020-03-27 17:31:59.8674|FATAL|WebApp.MvcApplication|A public action method 'img' was not found on controller 'WebApp.Controllers.EFMigrationsManagerController'.
+2020-04-01 08:03:06.6743|FATAL|WebApp.MvcApplication|UserId not found.
+2020-04-09 09:24:55.7676|FATAL|WebApp.MvcApplication|Invalid column name 'TenantCode'.
+Invalid column name 'TenantName'.
+Invalid column name 'Avatars'.
+2020-04-09 09:24:57.7179|FATAL|WebApp.MvcApplication|Invalid column name 'TenantCode'.
+Invalid column name 'TenantName'.
+Invalid column name 'Avatars'.
+2020-04-09 09:28:35.6540|FATAL|WebApp.MvcApplication|Cannot set data type to DateTime because '注册日期' is not recognized as a date.
+Parameter name: value
+2020-04-09 09:29:11.5179|FATAL|WebApp.MvcApplication|Cannot set data type to DateTime because '注册日期' is not recognized as a date.
+Parameter name: value
+2020-04-09 09:30:10.0933|FATAL|WebApp.MvcApplication|Cannot set data type to DateTime because '注册日期' is not recognized as a date.
+Parameter name: value
+2020-04-09 09:39:32.7240|FATAL|WebApp.MvcApplication|The process cannot access the file 'D:\tfsonline\opensource\SmartCode-Engine-V4.0\CustomBasicScaffolder\Demo\WebApp\ExcelTemplate\Company.xlsx' because it is being used by another process.
+2020-04-09 09:40:01.3860|FATAL|WebApp.MvcApplication|The process cannot access the file 'D:\tfsonline\opensource\SmartCode-Engine-V4.0\CustomBasicScaffolder\Demo\WebApp\ExcelTemplate\Company.xlsx' because it is being used by another process.
+2020-04-09 09:41:12.7040|FATAL|WebApp.MvcApplication|The process cannot access the file 'D:\tfsonline\opensource\SmartCode-Engine-V4.0\CustomBasicScaffolder\Demo\WebApp\ExcelTemplate\Company.xlsx' because it is being used by another process.
+2020-04-09 10:15:49.5184|FATAL|WebApp.MvcApplication|Delegate to an instance method cannot have null 'this'.
+2020-04-09 10:19:57.2390|FATAL|WebApp.MvcApplication|Unable to create a constant value of type 'WebApp.Models.ExpColumnOpts'. Only primitive types or enumeration types are supported in this context.
+2020-04-09 10:23:48.3019|FATAL|WebApp.MvcApplication|Unable to create a constant value of type 'WebApp.Models.ExpColumnOpts'. Only primitive types or enumeration types are supported in this context.
+2020-04-09 10:25:23.3173|FATAL|WebApp.MvcApplication|Unable to create a null constant value of type 'WebApp.Models.ExpColumnOpts'. Only entity types, enumeration types or primitive types are supported in this context.
+2020-04-09 10:29:48.9416|FATAL|WebApp.MvcApplication|The cast to value type 'System.Boolean' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type.
+2020-04-09 10:33:52.1295|FATAL|WebApp.MvcApplication|Unable to create a constant value of type 'WebApp.Models.ExpColumnOpts'. Only primitive types or enumeration types are supported in this context.
+2020-04-09 10:37:01.0699|FATAL|WebApp.MvcApplication|Unable to create a constant value of type 'WebApp.Models.ExpColumnOpts'. Only primitive types or enumeration types are supported in this context.
+2020-04-09 10:37:19.6625|FATAL|WebApp.MvcApplication|Delegate to an instance method cannot have null 'this'.
+2020-04-09 10:38:22.9047|FATAL|WebApp.MvcApplication|Object reference not set to an instance of an object.
+2020-04-09 10:40:30.4921|FATAL|WebApp.MvcApplication|Object reference not set to an instance of an object.
+2020-04-10 09:11:07.4398|FATAL|WebApp.MvcApplication|Invalid column name 'data'.
+2020-04-10 09:11:42.7617|FATAL|WebApp.MvcApplication|Invalid column name 'data'.
+2020-04-10 14:29:56.2798|FATAL|WebApp.MvcApplication|Input string was not in a correct format.

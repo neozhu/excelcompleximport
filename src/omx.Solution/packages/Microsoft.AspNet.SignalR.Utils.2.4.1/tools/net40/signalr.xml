@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>signalr</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNet.SignalR.Utils.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Error_UnrecognizedCommand">
+            <summary>
+              Looks up a localized string similar to Unrecognized command &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_BadImage">
+            <summary>
+              Looks up a localized string similar to Assembly &apos;{0}&apos; could not be loaded because it is a bad image. http://support.microsoft.com/kb/967163.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_CreatingTempDirectory">
+            <summary>
+              Looks up a localized string similar to Creating temp directory {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_Error">
+            <summary>
+              Looks up a localized string similar to Error: .
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_GenerateHubProxy">
+            <summary>
+              Looks up a localized string similar to Generate HubProxy.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_GeneratesHubProxyJSFilesForHub">
+            <summary>
+              Looks up a localized string similar to Generates HubProxy JavaScript files for server Hub classes..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_Help">
+             <summary>
+               Looks up a localized string similar to usage: signalr &lt;command&gt; [args]
+            
+            Available commands:
+            
+              {0}
+            
+            For more information, visit http://go.microsoft.com/fwlink/?LinkId=275833.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_InstallingPerformanceCounters">
+            <summary>
+              Looks up a localized string similar to Installing performance counters....
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_InstallPerformanceCounters">
+            <summary>
+              Looks up a localized string similar to Install performance counters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_InstallSignalRPerformanceCounters">
+            <summary>
+              Looks up a localized string similar to Installs SignalR performance counters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_PerformanceCountersInstalled">
+            <summary>
+              Looks up a localized string similar to Performance counters installed!.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_PerformanceCountersUninstalled">
+            <summary>
+              Looks up a localized string similar to Performance counters uninstalled!.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_SignalRUtilityVersion">
+            <summary>
+              Looks up a localized string similar to SignalR Utility Version: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_TryRunningAsAdmin">
+            <summary>
+              Looks up a localized string similar to Try running as admin..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_UninstallPerformanceCounters">
+            <summary>
+              Looks up a localized string similar to Uninstall performance counters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_UninstallSignalRPerformanceCounters">
+            <summary>
+              Looks up a localized string similar to Uninstalls SignalR performance counters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Notify_Warning">
+            <summary>
+              Looks up a localized string similar to Warning: .
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Utils.Resources.Error_MissingBindingRedirect">
+            <summary>
+              Looks up a localized string similar to NOTE: These errors are often caused by missing binding redirects.  If your server application has a 'Web.config' or '[AppName].exe.config' file with binding redirects in it, provide the path to that file with the '/configFile:' parameter .
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager">
+            <summary>
+            Provides access to performance counters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.Initialize(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Initializes the performance counters.
+            </summary>
+            <param name="instanceName">The host instance name.</param>
+            <param name="hostShutdownToken">The CancellationToken representing the host shutdown.</param>
+        </member>
+        <member name="M:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.LoadCounter(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Loads a performance counter.
+            </summary>
+            <param name="categoryName">The category name.</param>
+            <param name="counterName">The counter name.</param>
+            <param name="instanceName">The instance name.</param>
+            <param name="isReadOnly">Whether the counter is read-only.</param>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsConnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Connect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsReconnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Reconnect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsDisconnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Disconnect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsCurrentForeverFrame">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using ForeverFrame transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsCurrentLongPolling">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using LongPolling transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsCurrentServerSentEvents">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using ServerSentEvents transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsCurrentWebSockets">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using WebSockets transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionsCurrent">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionMessagesReceivedTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages received by connections (server to client) since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionMessagesSentTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages received by connections (server to client) since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by connections (server to client) per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ConnectionMessagesSentPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages sent by connections (client to server) per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusMessagesReceivedTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages received by subscribers since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by a subscribers per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutMessageBusMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by the scaleout message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusMessagesPublishedTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages published to the message bus since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusMessagesPublishedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages published to the message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusSubscribersCurrent">
+            <summary>
+            Gets the performance counter representing the current number of subscribers to the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusSubscribersTotal">
+            <summary>
+            Gets the performance counter representing the total number of subscribers to the message bus since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusSubscribersPerSec">
+            <summary>
+            Gets the performance counter representing the number of new subscribers to the message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusAllocatedWorkers">
+            <summary>
+            Gets the performance counter representing the number of workers allocated to deliver messages in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusBusyWorkers">
+            <summary>
+            Gets the performance counter representing the number of workers currently busy delivering messages in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.MessageBusTopicsCurrent">
+            <summary>
+            Gets the performance counter representing representing the current number of topics in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsAllTotal">
+            <summary>
+            Gets the performance counter representing the total number of all errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsAllPerSec">
+            <summary>
+            Gets the performance counter representing the number of all errors processed per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsHubResolutionTotal">
+            <summary>
+            Gets the performance counter representing the total number of hub resolution errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsHubResolutionPerSec">
+            <summary>
+            Gets the performance counter representing the number of hub resolution errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsHubInvocationTotal">
+            <summary>
+            Gets the performance counter representing the total number of hub invocation errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsHubInvocationPerSec">
+            <summary>
+            Gets the performance counter representing the number of hub invocation errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsTransportTotal">
+            <summary>
+            Gets the performance counter representing the total number of transport errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ErrorsTransportPerSec">
+            <summary>
+            Gets the performance counter representing the number of transport errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutStreamCountTotal">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutStreamCountOpen">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider that are in the open state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutStreamCountBuffering">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider that are in the buffering state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutErrorsTotal">
+            <summary>
+            Gets the performance counter representing the total number of scaleout errors since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutErrorsPerSec">
+            <summary>
+            Gets the performance counter representing the number of scaleout errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.IPerformanceCounterManager.ScaleoutSendQueueLength">
+            <summary>
+            Gets the performance counter representing the current scaleout send queue length.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager">
+            <summary>
+            Manages performance counters using Windows performance counters.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.CategoryName">
+            <summary>
+            The performance counter category name for SignalR counters.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsConnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Connect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsReconnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Reconnect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsDisconnected">
+            <summary>
+            Gets the performance counter representing the total number of connection Disconnect events since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsCurrentForeverFrame">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using the ForeverFrame transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsCurrentLongPolling">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using the LongPolling transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsCurrentServerSentEvents">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using the ServerSentEvents transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsCurrentWebSockets">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected using the WebSockets transport.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionsCurrent">
+            <summary>
+            Gets the performance counter representing the number of connections currently connected.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionMessagesReceivedTotal">
+            <summary>
+            Gets the performance counter representing the toal number of messages received by connections (server to client) since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionMessagesSentTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages sent by connections (client to server) since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by connections (server to client) per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ConnectionMessagesSentPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages sent by connections (client to server) per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusMessagesReceivedTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages received by subscribers since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by a subscribers per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutMessageBusMessagesReceivedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages received by the scaleout message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusMessagesPublishedTotal">
+            <summary>
+            Gets the performance counter representing the total number of messages published to the message bus since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusMessagesPublishedPerSec">
+            <summary>
+            Gets the performance counter representing the number of messages published to the message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusSubscribersCurrent">
+            <summary>
+            Gets the performance counter representing the current number of subscribers to the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusSubscribersTotal">
+            <summary>
+            Gets the performance counter representing the total number of subscribers to the message bus since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusSubscribersPerSec">
+            <summary>
+            Gets the performance counter representing the number of new subscribers to the message bus per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusAllocatedWorkers">
+            <summary>
+            Gets the performance counter representing the number of workers allocated to deliver messages in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusBusyWorkers">
+            <summary>
+            Gets the performance counter representing the number of workers currently busy delivering messages in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.MessageBusTopicsCurrent">
+            <summary>
+            Gets the performance counter representing representing the current number of topics in the message bus.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsAllTotal">
+            <summary>
+            Gets the performance counter representing the total number of all errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsAllPerSec">
+            <summary>
+            Gets the performance counter representing the number of all errors processed per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsHubResolutionTotal">
+            <summary>
+            Gets the performance counter representing the total number of hub resolution errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsHubResolutionPerSec">
+            <summary>
+            Gets the performance counter representing the number of hub resolution errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsHubInvocationTotal">
+            <summary>
+            Gets the performance counter representing the total number of hub invocation errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsHubInvocationPerSec">
+            <summary>
+            Gets the performance counter representing the number of hub invocation errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsTransportTotal">
+            <summary>
+            Gets the performance counter representing the total number of transport errors processed since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ErrorsTransportPerSec">
+            <summary>
+            Gets the performance counter representing the number of transport errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutStreamCountTotal">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutStreamCountOpen">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider that are in the open state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutStreamCountBuffering">
+            <summary>
+            Gets the performance counter representing the number of logical streams in the currently configured scaleout message bus provider that are in the buffering state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutErrorsTotal">
+            <summary>
+            Gets the performance counter representing the total number of scaleout errors since the application was started.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutErrorsPerSec">
+            <summary>
+            Gets the performance counter representing the number of scaleout errors per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.ScaleoutSendQueueLength">
+            <summary>
+            Gets the performance counter representing the current scaleout send queue length.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.SignalR.Infrastructure.PerformanceCounterManager.Initialize(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Initializes the performance counters.
+            </summary>
+            <param name="instanceName">The host instance name.</param>
+            <param name="hostShutdownToken">The CancellationToken representing the host shutdown.</param>
+        </member>
+    </members>
+</doc>

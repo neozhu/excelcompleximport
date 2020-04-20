@@ -1,0 +1,63 @@
+﻿﻿@model WebApp.Models.FaceLib
+<!-- begin master section -->
+<div  class="main-form">
+<!--begin facelib form  -->
+<form id="facelib_form" method="post" novalidate="novalidate" >
+@Html.AntiForgeryToken()
+   @Html.HiddenFor(x=>x.Id)
+ <fieldset>
+ <div class="form-group form-group-sm">
+      <div class="row">
+
+        <!--标签-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Label) </label>
+			@Html.EditorFor(x => x.Label, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Label) } })
+      
+         </div>
+
+        <!--描述-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.Description) </label>
+			@Html.EditorFor(x => x.Description, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.Description) } })
+      
+         </div>
+
+        <!--存放路径-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ImgPath) </label>
+			@Html.EditorFor(x => x.ImgPath, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ImgPath) } })
+      
+         </div>
+
+        <!--访问地址-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ImgUrl) </label>
+			@Html.EditorFor(x => x.ImgUrl, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ImgUrl) } })
+      
+         </div>
+
+     <!--图片数据-->
+     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ImgRawData) </label>
+            @Html.EditorFor(x => x.ImgRawData, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ImgRawData) } })
+          
+      </div>
+
+        <!--Base64数据-->
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <label class="control-label">@Html.DisplayNameFor(model => model.ImgBase64Data) </label>
+			@Html.EditorFor(x => x.ImgBase64Data, new { htmlAttributes = new { @class = "form-control", placeholder = Html.DisplayNameFor(x => x.ImgBase64Data) } })
+      
+         </div>
+	   </div>
+    </div>
+	    
+</fieldset>
+</form>
+<!-- end facelib form  -->
+</div>
+
+<!-- end master section -->
+<!--========================================================================================-->
+
