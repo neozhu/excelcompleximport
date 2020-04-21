@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
@@ -11,44 +12,139 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace ConsoleApp1
 {
-    class Program
-    {
-        static string getphonenum(string str) {
-            //"广州市海珠区滨江东路郭墩街72-74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)"
+    class C1 {
+       public static string getZUDF28(string str)
+        {
+            var l = str.Length;
+            var l1 = str.LastIndexOf("（");
+            var l2 = str.LastIndexOf("）");
+            var m = str.Substring(l1 + 1, l - l1 - 2);
+            var code = "";
+            if (m == "月结")
+            {
+                code = "YJ";
+            }
+            else if (m == "到付")
+            {
+                code = "DF";
+            }
+            return code;
+        }
+        public static string getZUDF31(string str) {
             var l = str.Length;
             var index1 = str.LastIndexOf("(");
             var index2 = str.LastIndexOf(")");
-            var test = str.Substring(index1+1, l - index1-2 );
+            var test = str.Substring(index1 + 1, l - index1 - 2);
             var array = test.Split(' ');
             var p = array[0];
             return p;
         }
+        public static string getZUDF32(string str)
+        {
+            var l = str.Length;
+            var index1 = str.LastIndexOf("(");
+            var index2 = str.LastIndexOf(")");
+            var test = str.Substring(index1 + 1, l - index1 - 2);
+            var array = test.Split(' ');
+            var p = array[1];
+            return p;
+        }
+        //用于报告的拣货说明
+        public static string getZYYBGDJHSM(string str) {
+            var p = "";
+            if (str.IndexOf("德邦物流") >= 0)
+            {
+                p = "标快";
+            }else if (str.IndexOf("顺丰快递") >= 0)
+            {
+                var l = str.Length;
+                var l1 = str.IndexOf("-");
+                p = str.Substring(l1 + 1, 2);
+            }
+            return p;
+        }
+        //外部单号
+        public static string getZWBDDH1(string str)
+        {
+            var l = str.Length;
+            var index1 = str.LastIndexOf("（");
+            var index2 = str.LastIndexOf("）");
+            var p = str.Substring(index1 + 1, 6);
+            return p;
+        }
+        //客户代码 CYGZ 广州市骑侠商贸有限公司
+        public static string getZUDF21(string str)
+        {
+            var l = str.Length;
+            var array = str.Split(' ');
+            var p = array[0];
+            return p;
+        }
+        //客户名称 CYGZ 广州市骑侠商贸有限公司
+        public static string getZUDF22(string str)
+        {
+            var l = str.Length;
+            var array = str.Split(' ');
+            var p = array[1];
+            return p;
+        }
+        //地址 市 广州市海珠区滨江东路郭墩街72-74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)
+        public static string getZUDF29(string str)
+        {
+            var l = str.Length;
+            var p = str.Substring(0, 3);
+                      return p;
+        }
+        //地址 地址 广州市海珠区滨江东路郭墩街72-74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)
+        public static string getZUDF30(string str)
+        {
+            var l = str.Length;
+            var l1 = str.LastIndexOf("(");
+            var p = str.Substring(0, l1);
+            return p;
+        }
+        //获取当前时间
+        public static string getnow() {
+            return DateTime.Now.ToString("yyyyMMdd200000");
+        }
+    }
+    class Program
+    {
+        
         static void  Main(string[] args)
         {
-            var p = "广州市海珠区滨江东路郭墩街72 - 74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)";
-            var p1 = getphonenum(p);
-            var d = System.DateTime.Now.ToString("yyyyMMdd200000");
+            //var p = "广州市海珠区滨江东路郭墩街72 - 74号首层之五维乐单车（大元帅府后面顺丰提货点旁）  (15817490646 赵耀彬)";
+            //var p1 = getphonenum(p);
+            var p2 = C1.getZWBDDH1("出货通知（JUL996）");
+            //var d = System.DateTime.Now.ToString("yyyyMMdd200000");
             //var m = match("TOTAL", "TOTAL");
             //var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
             //var str = "INVOICE DATE(發票日期):20180904".Split(':')[1];
-            var str = "$.Substring($.LastIndexOf(\"(\")+1,$.Length-$.LastIndexOf(\"(\") -2 ).Split(' ')[0]";
-            str = str.Replace("$", "\"" + p + "\"");
-            string result =  CSharpScript.EvaluateAsync<string>(str).Result;
+            //var str = "$.Substring($.LastIndexOf(\"(\")+1,$.Length-$.LastIndexOf(\"(\") -2 ).Split(' ')[0]";
+            //str = str.Replace("$", "\"" + p + "\"");
+            //string result =  CSharpScript.EvaluateAsync<string>(str).Result;
             var path = @"d:\JUL996.xls";
             var configpath = @"d:\xmn-rule1.xml";
             var xdoc = XDocument.Load(configpath);
             var root = xdoc.Root.Name;
             var descxml = new XDocument();
+
+            //var formatter = "C1.getZUDF28($)";
+            //var val = "德邦物流（月结）";
+            //  formatter = formatter.Replace("$", "\"" + val + "\"");
+            //var res= script.ContinueWithAsync<string>(formatter).Result.ReturnValue;
+            var script = LoadScript(xdoc);
             string ext = Path.GetExtension(path).ToLower();
             using (var stream = new FileStream(path, FileMode.Open))
             {
                 descxml.Add(new XElement(xdoc.Root.Name));
                 var workbook = Create(stream, ext);
-                Process(workbook, null, xdoc.Root, 0, descxml.Root, null);
+                Process(script,workbook, null, xdoc.Root, 0, descxml.Root, null);
             }
                
             descxml.Save("d:\\output.xml");
@@ -256,7 +352,21 @@ namespace ConsoleApp1
                 return null; 
                }
         }
-        static void Process(IWorkbook book, ISheet sheet, XElement element, int depth, XElement root,DataRow dr)
+        static ScriptState LoadScript(XDocument xdoc) {
+            if (xdoc.DescendantNodes()
+                .Any(el => el.NodeType == XmlNodeType.CDATA))
+            {
+                var scriptcode = ((XCData)xdoc.DescendantNodes()
+                    .Single(el => el.NodeType == XmlNodeType.CDATA)
+                    .Parent.FirstNode).Value;
+                var script = CSharpScript.RunAsync(scriptcode).Result;
+                return script;
+            }
+            else {
+                return null;   
+             }
+        }
+        static void Process(ScriptState script,IWorkbook book, ISheet sheet, XElement element, int depth, XElement root,DataRow dr)
         {
             var pelment = element.Parent;
             var name = element.Name;
@@ -337,23 +447,54 @@ namespace ConsoleApp1
                         {
                             val = defaultvalue;
                         }
-                        if (!string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(formatter))
+                        //执行动态脚本
+                        if (!string.IsNullOrEmpty(formatter))
                         {
-                            var codescript = formatter.Replace("$", "\"" + val + "\"");
-                            var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
-                            val = fval;
+                            if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System")==0)
+                            {
+                                var codescript = formatter.Replace("$", "\"" + val + "\"");
+                                var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
+                                val = fval;
+                            }else if (script != null)
+                            {
+                                var codescript = formatter;
+                                if (formatter.IndexOf("$") > 0)
+                                {
+                                    codescript = formatter.Replace("$", "\"" + val + "\"");
+                                }
+                                var fval = script.ContinueWithAsync<string>(codescript).Result.ReturnValue;
+                                val = fval;
+                            }
                         }
                         copyelement.SetValue(val);
                     }
-                    else if (!string.IsNullOrEmpty(defaultvalue))
+                    else 
                     {
-                        copyelement.SetValue(defaultvalue);
-                    }else if (!string.IsNullOrEmpty(formatter))
-                    {
-                        var codescript = formatter;
-                        var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
-                        copyelement.SetValue(fval);
-                    }
+                        var val = "";
+                        if (!string.IsNullOrEmpty(defaultvalue)) {
+                            val = defaultvalue;
+                        }
+                        if (!string.IsNullOrEmpty(formatter))
+                        {
+                            if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System") == 0)
+                            {
+                                var codescript = formatter.Replace("$", "\"" + val + "\"");
+                                var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
+                                val = fval;
+                            }
+                            else if (script != null)
+                            {
+                                var codescript = formatter;
+                                if (formatter.IndexOf("$") > 0)
+                                {
+                                    codescript = formatter.Replace("$", "\"" + val + "\"");
+                                }
+                                var fval = script.ContinueWithAsync<string>(codescript).Result.ReturnValue;
+                                val = fval;
+                            }
+                        }
+                        copyelement.SetValue(val);
+                    } 
                 }
                 else
                 {
@@ -389,11 +530,11 @@ namespace ConsoleApp1
                             {
                                 if (copyelement != null)
                                 {
-                                    Process(book, sheet, child, depth, copyelement, datarow);
+                                    Process(script,book, sheet, child, depth, copyelement, datarow);
                                 }
                                 else
                                 {
-                                    Process(book, sheet, child, depth, root, datarow);
+                                    Process(script,book, sheet, child, depth, root, datarow);
                                 }
 
                             }
@@ -412,11 +553,11 @@ namespace ConsoleApp1
                     {
                         if (copyelement != null)
                         {
-                            Process(book,sheet, child, depth, copyelement,null);
+                            Process(script,book, sheet, child, depth, copyelement,null);
                         }
                         else
                         {
-                            Process(book,sheet, child, depth, root,null);
+                            Process(script,book, sheet, child, depth, root,null);
                         }
 
                     }
