@@ -474,24 +474,10 @@ namespace ConsoleApp1
                         if (!string.IsNullOrEmpty(defaultvalue)) {
                             val = defaultvalue;
                         }
+                        //执行动态脚本
                         if (!string.IsNullOrEmpty(formatter))
                         {
-                            if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System") == 0)
-                            {
-                                var codescript = formatter.Replace("$", "\"" + val + "\"");
-                                var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
-                                val = fval;
-                            }
-                            else if (script != null)
-                            {
-                                var codescript = formatter;
-                                if (formatter.IndexOf("$") > 0)
-                                {
-                                    codescript = formatter.Replace("$", "\"" + val + "\"");
-                                }
-                                var fval = script.ContinueWithAsync<string>(codescript).Result.ReturnValue;
-                                val = fval;
-                            }
+                            val = executescript(script, formatter, val);
                         }
                         copyelement.SetValue(val);
                     } 
@@ -565,6 +551,28 @@ namespace ConsoleApp1
 
                 depth--;
             }
+        }
+
+        private static string executescript(ScriptState script, string formatter, string val)
+        {
+            if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System") == 0)
+            {
+                var codescript = formatter.Replace("$", "\"" + val + "\"");
+                var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
+                val = fval;
+            }
+            else if (script != null)
+            {
+                var codescript = formatter;
+                if (formatter.IndexOf("$") > 0)
+                {
+                    codescript = formatter.Replace("$", "\"" + val + "\"");
+                }
+                var fval = script.ContinueWithAsync<string>(codescript).Result.ReturnValue;
+                val = fval;
+            }
+
+            return val;
         }
 
         private static DataTable filldatatable(ISheet sheet, string starttag, string start, string endtag, string end, string offset)
