@@ -129,19 +129,22 @@ namespace ConsoleApp1
             //str = str.Replace("$", "\"" + p + "\"");
             //string result =  CSharpScript.EvaluateAsync<string>(str).Result;
             var path = @"d:\JUL996.xls";
-            var configpath = @"d:\xmn-rule1.xml";
+            var configpath = @"d:\xmn-oms-so-rule.xml";
             var xdoc = XDocument.Load(configpath);
+            //var namespacestr = xdoc.Root.GetDefaultNamespace();
+            //var prefix = xdoc.Root.GetPrefixOfNamespace(namespacestr);
             var root = xdoc.Root.Name;
             var descxml = new XDocument();
 
             //var formatter = "C1.getZUDF28($)";
             //var val = "德邦物流（月结）";
-            //  formatter = formatter.Replace("$", "\"" + val + "\"");
+            //formatter = formatter.Replace("$", "\"" + val + "\"");
             //var res= script.ContinueWithAsync<string>(formatter).Result.ReturnValue;
             var script = LoadScript(xdoc);
             string ext = Path.GetExtension(path).ToLower();
             using (var stream = new FileStream(path, FileMode.Open))
             {
+               
                 descxml.Add(new XElement(xdoc.Root.Name));
                 var workbook = Create(stream, ext);
                 Process(script,workbook, null, xdoc.Root, 0, descxml.Root, null);
@@ -338,6 +341,7 @@ namespace ConsoleApp1
             //var sheet = workbook.GetSheetAt(0);
             #endregion
         }
+        //读取Excel
         static IWorkbook Create(FileStream filestream,string ext) {
      
             if (ext.Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
@@ -352,6 +356,7 @@ namespace ConsoleApp1
                 return null; 
                }
         }
+        //加载动态脚本
         static ScriptState LoadScript(XDocument xdoc) {
             if (xdoc.DescendantNodes()
                 .Any(el => el.NodeType == XmlNodeType.CDATA))
@@ -366,8 +371,10 @@ namespace ConsoleApp1
                 return null;   
              }
         }
+        //递归读取并转换成XML
         static void Process(ScriptState script,IWorkbook book, ISheet sheet, XElement element, int depth, XElement root,DataRow dr)
         {
+            
             var pelment = element.Parent;
             var name = element.Name;
             var atts = element.Attributes();
@@ -412,92 +419,28 @@ namespace ConsoleApp1
                 // element is child with no descendants
                 if (dr == null)
                 {
-                    CellAddress celladdress = null;
-                    if (!string.IsNullOrEmpty(starttag))
-                    {
-                        celladdress = findXslx(sheet, starttag);
-                    }
-                    else if (!string.IsNullOrEmpty(start))
-                    {
-                        celladdress = new CellAddress(new CellReference(start));
-                    }
-                    if (celladdress != null)
-                    {
-                        var r = 0;
-                        var c = 0;
-                        if (!string.IsNullOrEmpty(offset))
-                        {
-                            var sp = offset.Split(';');
-                            foreach (var ts in sp)
-                            {
-                                var sparray = ts.Split(':');
-                                if (sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
-                                {
-                                    c = Convert.ToInt32(sparray[1]);
-                                }
-                                else
-                                {
-                                    r = Convert.ToInt32(sparray[1]);
-                                }
-                            }
-                        }
-                        var cell = sheet.GetRow(celladdress.Row + r).GetCell(celladdress.Column + c);
-                        var val = getCellValue(cell);
-                        if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
-                        {
-                            val = defaultvalue;
-                        }
-                        //执行动态脚本
-                        if (!string.IsNullOrEmpty(formatter))
-                        {
-                            if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System")==0)
-                            {
-                                var codescript = formatter.Replace("$", "\"" + val + "\"");
-                                var fval = CSharpScript.EvaluateAsync<string>(codescript).Result;
-                                val = fval;
-                            }else if (script != null)
-                            {
-                                var codescript = formatter;
-                                if (formatter.IndexOf("$") > 0)
-                                {
-                                    codescript = formatter.Replace("$", "\"" + val + "\"");
-                                }
-                                var fval = script.ContinueWithAsync<string>(codescript).Result.ReturnValue;
-                                val = fval;
-                            }
-                        }
-                        copyelement.SetValue(val);
-                    }
-                    else 
-                    {
-                        var val = "";
-                        if (!string.IsNullOrEmpty(defaultvalue)) {
-                            val = defaultvalue;
-                        }
-                        //执行动态脚本
-                        if (!string.IsNullOrEmpty(formatter))
-                        {
-                            val = executescript(script, formatter, val);
-                        }
-                        copyelement.SetValue(val);
-                    } 
+                    var val = "";
+                    val = getSpecificCellValue(script, sheet, starttag, start, defaultvalue, formatter, offset, val);
+                    copyelement.SetValue(val);
                 }
                 else
                 {
+                    //从读取的datatable row 中取值,如果取不到继续找
+                    var val = "";
                    if(!string.IsNullOrEmpty(fieldname) && dr.Table.Columns.Contains(fieldname))
                     {
-                        var val =  dr[fieldname].ToString();
+                        val =  dr[fieldname].ToString();
                         if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
                         {
                             val = defaultvalue;
                             
                         }
-                        copyelement.SetValue(val);
                     }
-                    else if(!string.IsNullOrEmpty(defaultvalue))
+                    else
                     {
-                       copyelement.SetValue(defaultvalue);
+                        val = getSpecificCellValue(script, sheet, starttag, start, defaultvalue, formatter, offset, val);
                     }
+                    copyelement.SetValue(val);
                 }
                  
             }
@@ -552,8 +495,69 @@ namespace ConsoleApp1
                 depth--;
             }
         }
+        //获取指定cell的值
+        private static string getSpecificCellValue(ScriptState script, ISheet sheet, string starttag, string start, string defaultvalue, string formatter, string offset, string val)
+        {
+            CellAddress celladdress = null;
+            if (!string.IsNullOrEmpty(starttag))
+            {
+                celladdress = findXslx(sheet, starttag);
+            }
+            else if (!string.IsNullOrEmpty(start))
+            {
+                celladdress = new CellAddress(new CellReference(start));
+            }
+            if (celladdress != null)
+            {
+                var r = 0;
+                var c = 0;
+                if (!string.IsNullOrEmpty(offset))
+                {
+                    var sp = offset.Split(';');
+                    foreach (var ts in sp)
+                    {
+                        var sparray = ts.Split(':');
+                        if (sparray[0].Equals("c", StringComparison.OrdinalIgnoreCase))
+                        {
+                            c = Convert.ToInt32(sparray[1]);
+                        }
+                        else
+                        {
+                            r = Convert.ToInt32(sparray[1]);
+                        }
+                    }
+                }
+                var cell = sheet.GetRow(celladdress.Row + r).GetCell(celladdress.Column + c);
+                val = getCellValue(cell);
+                if (string.IsNullOrEmpty(val) && !string.IsNullOrEmpty(defaultvalue))
+                {
+                    val = defaultvalue;
+                }
+                //执行动态脚本
+                if (!string.IsNullOrEmpty(formatter))
+                {
+                    val = executeScript(script, formatter, val);
+                }
 
-        private static string executescript(ScriptState script, string formatter, string val)
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(defaultvalue))
+                {
+                    val = defaultvalue;
+                }
+                //执行动态脚本
+                if (!string.IsNullOrEmpty(formatter))
+                {
+                    val = executeScript(script, formatter, val);
+                }
+
+            }
+
+            return val;
+        }
+        //执行动态脚本
+        private static string executeScript(ScriptState script, string formatter, string val)
         {
             if (formatter.IndexOf("$") == 0 || formatter.IndexOf("System") == 0)
             {
@@ -574,7 +578,7 @@ namespace ConsoleApp1
 
             return val;
         }
-
+        //循环读取dataTable
         private static DataTable filldatatable(ISheet sheet, string starttag, string start, string endtag, string end, string offset)
         {
             CellAddress startaddress = null;
@@ -668,7 +672,7 @@ namespace ConsoleApp1
             }
             return table;
         }
-
+        //查找定位地址
         private static CellAddress findXslx(ISheet sheet, string key)
         {
             var lastrow = sheet.LastRowNum;
@@ -696,6 +700,7 @@ namespace ConsoleApp1
             }
             return null;
         }
+        //获取cell值
         private static string getCellValue(ICell cell)
         {
             if (cell == null)
@@ -738,7 +743,7 @@ namespace ConsoleApp1
                 throw new Exception("Cannot find this cell in any merged region");
             }
         }
-
+        //字符串通配符匹配
         static bool match(string pattern, string input)
         {
             if (String.Compare(pattern, input) == 0)
